@@ -1,29 +1,27 @@
 var socket = io();
+var now = moment();
+
 socket.on("connect", function (){
 	console.log("Connected to socket.io console!");
 });
 
 socket.on("message", function (message) {
-
-$(".messages").append("<p>" + message.msgTime +": " + message.text + "</p>");
-// console.log("Message:")	
-// console.log(message.text);
-// console.log("Message Time:")	
-// console.log(message.msgTime);
+//convert time from UTC to local timezone using local()
+var timestamp = moment.parseZone(message.msgTime).local().format("Do-MMM-YYYY h:mma");
+$(".messages").append("<p><b>" + timestamp +"</b>: " + message.text + "</p>");
 
 });
 
 
 // submit new message
 
-var $form = jQuery("#message-form");
-$form.on("submit", function (event) {
+$("#message-form").on("submit", function (event) {
 	event.preventDefault();
 	socket.emit("message", {
-		text:$form.find("input[name=message ]").val(),
-		msgTime:moment().format("YYYY-MM-DD hh:mm:ss")
+		text:$("#message-form").find("input[name=message ]").val(),
+		msgTime:now.utc().format() //send UTC time to server
 	});
 
-	$form.find("input[name=message ]").val("").focus();
+	$("#message-form").find("input[name=message ]").val("").focus();
 
 });
