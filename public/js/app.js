@@ -4,10 +4,12 @@ socket.on("connect", function (){
 });
 
 socket.on("message", function (message) {
-console.log("Message:")	
-console.log(message.text);
-console.log("Message Time:")	
-console.log(message.msgTime);
+
+$(".messages").append("<p>" + message.msgTime +": " + message.text + "</p>");
+// console.log("Message:")	
+// console.log(message.text);
+// console.log("Message Time:")	
+// console.log(message.msgTime);
 
 });
 
@@ -21,7 +23,7 @@ $form.on("submit", function (event) {
 		text:$form.find("input[name=message ]").val(),
 		msgTime:moment().format("YYYY-MM-DD hh:mm:ss")
 	});
-	
+
 	$form.find("input[name=message ]").val("").focus();
 
 });
