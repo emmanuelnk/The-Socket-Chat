@@ -18,9 +18,16 @@ io.on("connection", function(socket) {
 		//socket.broadcast.emit("message", message); //everybody except sender
 	});
 
+	socket.on("userJoined", function(userJoined) {
+		console.log(userJoined.joinTime +": " +userJoined.userName + "just joined " + userJoined.userRoom + " chat room!");
+		io.emit("userJoined", userJoined); // everybody including sender
+	});
+
 	socket.emit("message", {
 		text: "Welcome to the Chat App!",
-		msgTime: now.format("YYYY-MM-DD hh:mm:ss") // now.valueOf() //unix timestamp
+		msgTime: now.format("YYYY-MM-DD hh:mm:ss"), // now.valueOf() //unix timestamp
+		userName: "Server",
+		userColor: "grey"
 	});
 });
 
