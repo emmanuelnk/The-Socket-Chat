@@ -8,19 +8,23 @@ var now = moment();
 
 app.use(express.static(__dirname + "/public"));
 
+var clientInfo = {};
+
 io.on("connection", function(socket) {
 	console.log("User connected via Socket.io!");
 
 	socket.on("message", function(message) {
 		console.log("Message received: " + message.text);
 		console.log("Time received (UTC): " + message.msgTime);
-		io.emit("message", message); // everybody including sender
+		io.to(clientInfo[socket.id].userRoom).emit("message", message); // everybody including sender
 		//socket.broadcast.emit("message", message); //everybody except sender
 	});
 
 	socket.on("userJoined", function(userJoined) {
-		console.log(userJoined.joinTime +": " +userJoined.userName + "just joined " + userJoined.userRoom + " chat room!");
-		io.emit("userJoined", userJoined); // everybody including sender
+		clientInfo[socket.id] = userJoined;
+		console.log(userJoined.joinTime +": " +userJoined.userName + " just joined " + userJoined.userRoom + " chat room!");
+		socket.join(userJoined.userRoom);
+		socket.broadcast.to(userJoined.userRoom).emit("userJoined", userJoined); // everybody including sender
 	});
 
 	socket.emit("message", {
