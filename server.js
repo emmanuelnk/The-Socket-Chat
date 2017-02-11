@@ -10,6 +10,31 @@ app.use(express.static(__dirname + "/public"));
 
 var clientInfo = {};
 
+// sends currentusers to provided socket
+
+function sendCurrentUsers(socket) {
+	var info = clientInfo[socket.id];
+	var users = [];
+
+	if (typeof info === "undefined") {
+		return;
+	}
+
+	Object.keys(clientInfo).forEach(function(socketId) {
+		var userinfo = clientInfo[socketId];
+		if (info.userRoom === userinfo.userRoom) {
+			users.push(userinfo.userName);
+		}
+	});
+
+	socket.emit("message", {
+		text: "Current users: " + users.join(", "),
+		msgTime: now.format("YYYY-MM-DD hh:mm:ss"), // now.valueOf() //unix timestamp
+		userName: "Server",
+		userColor: "grey"
+	});
+}
+
 io.on("connection", function(socket) {
 	console.log("User connected via Socket.io!");
 
@@ -27,10 +52,12 @@ io.on("connection", function(socket) {
 	});
 
 	socket.on("message", function(message) {
-		console.log("Message received: " + message.text);
-		console.log("Time received (UTC): " + message.msgTime);
-		io.to(clientInfo[socket.id].userRoom).emit("message", message); // everybody including sender
-		//socket.broadcast.emit("message", message); //everybody except sender
+		if (message.text === "@currentUsers") {
+			sendCurrentUsers(socket);
+		} else {
+			io.to(clientInfo[socket.id].userRoom).emit("message", message);
+		}
+
 	});
 
 	socket.on("userJoined", function(userJoined) {
