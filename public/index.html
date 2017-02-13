@@ -3,17 +3,40 @@
 	<head>
 		<meta charset="utf-8">
 		<title>
-			Socket.io Basics
+			SocketChat
 		</title>
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/css/socketchatstyles.css">
+	<link rel="stylesheet" type="text/css" href="/css/ionicons.css">
 	</head>
 	<body>
-	<h1>JOIN CHAT:</h1>
-	<form action="/chat.html">
-		<label>Display Name: </label>
-		<input type="text" name="name"/>
-		<label>Chat Room: </label>
-		<input type="text" name="room"/>
-		<input type="submit" value="Join chat!"/>
-	</form>
-	</body>
+    <div class="login-dark">
+        <form action="/chat.html">
+            <h2 class="sr-only">Login Form</h2>
+            <div class="illustration"><i class="icon ion-chatboxes"></i></div>
+            <h2 style="text-align:center;font-family:courier;">SocketChat</h2>
+            <div class="form-group"></div>
+            <div class="input-group">
+            <span class="input-group-addon">
+            	<i class="glyphicon glyphicon-user"></i>
+            </span>
+            	<input type="text" name="name" placeholder="Username" required autofocus class="form-control" />
+            </div>
+
+            <div class="form-group"></div>
+            <select name="room" class="form-control">
+                <optgroup label="Rooms">
+                    <option value="movies" selected>Movies</option>
+                    <option value="games">Games</option>
+                    <option value="music">Music</option>
+                    <option value="tv">TV</option>
+                </optgroup>
+            </select>
+            <div class="form-group">
+                <button class="btn btn-primary btn-block" type="submit">Log In</button>
+            </div>
+            <a style="text-align:center;" href="http://emmanuel.destacked.com" class="forgot">A NodeJS App by Emmanuel N K</a>
+        </form>
+    </div>
+</body>
 </html>

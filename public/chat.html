@@ -3,24 +3,55 @@
 	<head>
 		<meta charset="utf-8">
 		<title>
-			Socket.io Basics
+			SocketChat
 		</title>
+		<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="/css/socketchatstyles.css">
+		<link rel="stylesheet" type="text/css" href="/css/ionicons.css">
 	</head>
 	<body>
-	<span style="font-family:courier;font-size:18px;"><b><a href="/index.html">Change Chat Profile</a></b></span>
-	<h2 id="room-title" style="font-family:courier;font-size:22px;font-weight:bold;"></h2>
-	<div class="messages" style="font-family:courier;font-size:18px;">
-	<!--Messages end up here-->
-		
-	</div>
-	<form id="message-form">
-		<input type="text" name="message"/>
-		<input type="submit">
-	</form>
-	<script src="/js/jquery-2.1.4.min.js"/></script>	
+	<div class="login-dark-chat">
+    <div class="container">
+        <div class="row">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+	           <div class="row">
+	            	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+	            	    <h2 id="room-title" style="font-family:courier;font-size:22px;font-weight:bold;background: #332e2e;color:white;padding: 10px;border-radius: 5px;"></h2>	
+	            	</div>
+	            	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+	            		<div class="icon ion-home pull-right" style="font-family:courier;font-size:18px;font-size: 35px;margin:5px;padding: 22px;"><b><a href="/index.html">Home</a></b></div>
+	            	</div>
+	            </div>
+            </div>
+            <div class="col-lg-10 col-md-10 col-sm-8 col-xs-12">
+                <div class="chatcontainer">
+                	<div class="messages" style="font-family:courier;font-size:18px;">
+					<!--Messages end up here-->					
+					</div>
+					<form id="message-form" class="row">
+					<div class="col-lg-10 col-md-10 col-sm-8 col-xs-8">
+						<input name="message" class="form-control"/>
+					</div>
+					<div class="col-lg-2 col-md-2 col-sm-4 col-xs-4">
+						<button type="submit" class="btn btn-primary" style="width: 100%;">
+						  <i class="icon ion-android-send"></i>&nbsp;&nbsp;Send 
+						</button>
+					</div>
+					</form>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-12">
+            	 <div id="currentUsers" class="chatcontainer users"> 
+					
+            	 </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <script src="/js/jquery-2.1.4.min.js"/></script>	
 	<script src="/js/socket.io-1.7.2.min.js"/></script>
 	<script src="/js/moment.min.js"/></script>
 	<script src="/js/queryparams.js"/></script>	
 	<script src="/js/app.js"/></script>	
-	</body>
+</body>
 </html>
