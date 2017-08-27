@@ -5,12 +5,11 @@ var http = require("http").Server(app);
 var io = require("socket.io")(http);
 var moment = require('moment');
 var now = moment().utc();
-
 app.use(express.static(__dirname + "/public"));
 
 var clientInfo = {};
 
-// sends currentusers to provided socket
+// sends current users to provided socket
 
 function sendCurrentUsers(socket) {
 	var info = clientInfo[socket.id];
@@ -39,7 +38,7 @@ function populateCurrentUsersList(socket,room) {
 	var info = clientInfo[socket.id];
 	var users = {
 		userlist:[]
-	}
+	};
 
 	if (typeof info === "undefined") {
 		return;
